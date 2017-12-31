@@ -1,0 +1,136 @@
+fileFormatVersion: 2
+guid: 27c6004538c209a42a8702d64153190d
+timeCreated: 1514412305
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: MetalstaffCasing
+    100004: MetalstaffInnerGem
+    100006: MetalstaffLargeRing
+    100008: MetalstaffRings
+    100010: MetalstaffRod
+    100012: MetalstaffSmallRing
+    400000: //RootNode
+    400002: MetalstaffCasing
+    400004: MetalstaffInnerGem
+    400006: MetalstaffLargeRing
+    400008: MetalstaffRings
+    400010: MetalstaffRod
+    400012: MetalstaffSmallRing
+    2300000: MetalstaffCasing
+    2300002: MetalstaffInnerGem
+    2300004: MetalstaffLargeRing
+    2300006: MetalstaffRod
+    2300008: MetalstaffSmallRing
+    3300000: MetalstaffCasing
+    3300002: MetalstaffInnerGem
+    3300004: MetalstaffLargeRing
+    3300006: MetalstaffRod
+    3300008: MetalstaffSmallRing
+    4300000: MetalstaffRod
+    4300002: MetalstaffCasing
+    4300004: MetalstaffInnerGem
+    4300006: MetalstaffLargeRing
+    4300008: MetalstaffSmallRing
+    7400000: Take 001
+    9500000: //RootNode
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Metalstaff01CasingMA
+    second: {fileID: 2100000, guid: e7c3a186c70185842865f4f7362becc3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Metalstaff01InnerGemMA
+    second: {fileID: 2100000, guid: ee175dbafa44cff4b81be5ebfc3cd635, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Metalstaff01Ring
+    second: {fileID: 2100000, guid: 8a81db11f5dc3b24da8db9d77be45138, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Metalstaff01RodMA
+    second: {fileID: 2100000, guid: f6a8d0645d880ed42a8c2777841f39db, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

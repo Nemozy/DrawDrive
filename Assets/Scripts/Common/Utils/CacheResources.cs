@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 public class CacheResources : MonoBehaviour
 {
+    public static float _version = 0.08f;
     private static Dictionary<string, GameObject> dicObj = new Dictionary<string, GameObject>();
     private static Dictionary<string, TerrainData> dicTerrains = new Dictionary<string, TerrainData>();
 

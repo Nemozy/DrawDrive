@@ -28,7 +28,7 @@ public class MapView
         {
             foreach (var el in t)
             {
-                DrawHeight(el.first, el.second, ref heights, k);
+                heights = DrawHeight(el.first, el.second, heights, k);
             }
         }
 
@@ -37,64 +37,52 @@ public class MapView
         ter.terrainData.SetHeights(0, 0, heights);
     }
 
-    public void DrawHeight(Vector3 v1, Vector3 v2, ref float[,] h, int j)
+    public float[,] DrawHeight(Vector3 v1, Vector3 v2, float[,] h, int j)
     {
+        float[,] ret = h;
         var step = 0.001f;
         var val = 0f;
         if (v2.z < v1.z)
         {
-            var d = v1.z - v2.z > 20 ? v1.z - v2.z - 20 : v1.z - v2.z;
-            step *= (v1.y - v2.y) / d;
+            var d = v2.z - v1.z > 20 ? v2.z - v1.z - 20 : v2.z - v1.z;
+            step *= (v2.y - v1.y) / d;
+            for (int i = -1; i >= -10; i--)
+            {
+                ret[Mathf.RoundToInt(v2.z - i), j] = step * 10 / (i - 0);
+            }
             val = step;
-            /*var valDif = val * (v2.z * 10 - 1) / ((v2.z - 10) * 10);
-            var v = valDif;
-            for (var i = (v2.z * 10 - 1); i > ((v2.z - 10) * 10); i++)
+            for (int i = Mathf.RoundToInt(v2.z + 10); i < Mathf.RoundToInt(v1.z - 10); i++)
             {
-                if (i < 0)
-                    break;
-                v += valDif;
-                h[(int)i/10, j] = v;
-            }*/
-            for (var i = v2.z; i < v1.z; i++)
-            {
-                /*if (vd > 20)
-                {
-                    if (i < v2.z + 10)
-                        val -= step / 2;
-                    if (i > v1.z - 10)
-                        val -= step / 2;
-                }*/
-                h[(int)i, j] = val;
+                ret[i, j] = val;
                 val += step;
             }
-            /*valDif = val * (v1.z * 10) / ((v1.z + 10) * 10);
-            v = valDif;
-            for (var i = (v1.z * 10); i > ((v1.z + 10) * 10); i++)
+            for (int i = 1; i <= 10; i++)
             {
-                if (i < 0)
-                    break;
-                v += valDif;
-                h[(int)i / 10, j] = v;
-            }*/
+                ret[Mathf.RoundToInt(v1.z - 10 + i), j] = step * 10 / (i - 0);
+            }
+            val += step;
         }
         else
         {
-            var d = v1.z - v2.z > 20 ? v1.z - v2.z - 20 : v1.z - v2.z;
+            var d = v1.z - v2.z > 10 ? v1.z - v2.z - 10 : v1.z - v2.z;
             step *= (v1.y - v2.y) / d;
-            val = step;
-            for (var i = v1.z; i < v2.z; i++)
+            for (int i = -1; i >= -10; i--)
             {
-                /*if (vd > 20)
-                {
-                    if (i < v1.z + 10)
-                        val -= step / 2;
-                    if (i > v2.z - 10)
-                        val -= step / 2;
-                }*/
-                h[(int)i, j] = val;
+                ret[Mathf.RoundToInt(v1.z + 1 + i), j] = step / (0 - i);
+            }
+            val = step;
+            for (int i = Mathf.RoundToInt(v1.z); i < Mathf.RoundToInt(v2.z - 4); i++)
+            {
+                ret[i, j] = val;
                 val += step;
             }
+            for (int i = 1; i <= 5; i++)
+            {
+                ret[Mathf.RoundToInt(v2.z - i), j] = step * 10 / (0 - i) + val;
+            }
+            val += step;
         }
+        return ret;
     }
 
     public void AddNewCell(int id, string name, int x, int y)

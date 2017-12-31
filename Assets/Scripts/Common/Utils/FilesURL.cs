@@ -22,7 +22,7 @@
 
 
         // Cars
-        if (name.ToLower() == StringValue.GetStringValue(Collections.CarsEnum.FireGTO).ToLower()) return "Cars/Prefabs/FireGTO";
+        if (name.ToLower() == StringValue.GetStringValue(Collections.CarsEnum.FireGTO).ToLower()) return "Behaviours/Cars/FordMustang/Prefabs/Mustang";
 
 
 

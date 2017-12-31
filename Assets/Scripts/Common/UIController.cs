@@ -6,6 +6,7 @@ public class UIController : MonoBehaviour
 {
     private StageEnvironment _stage;
     public UnityEngine.UI.Text _message;
+    public UnityEngine.UI.Text _coins;
     public Transform _speedometerArrow;
     public Transform _gasolineArrow;
     //skills
@@ -20,6 +21,11 @@ public class UIController : MonoBehaviour
     public void SetMessage(string t)
     {
         _message.text = t;
+    }
+
+    public void SetCoins(uint t)
+    {
+        _coins.text = t.ToString();
     }
 
     public void SetSpeed(float t, float max)
