@@ -9,23 +9,23 @@ public class CarBase : BaseBehaviour
     private float _maxSpeed = 120;
     private float _motorTorque = 100f;
     private float _maxTorque = -260;
-    private float _motorTorque_coeff = 3;
+    private float _motorTorque_coeff = 3; //engine power
     private float _motorBreak = -100f;
-    private float _gasoline = 40;
     private float _maxGasoline = 40;
+    private float _gasoline = 40;
     private float _gasolineConsumption = 18;
     private float _jumpPower = 5;
 
     private float _hp = 100;
     private float _maxHp = 100;
     private bool _explosion = false;
-    //private bool _takeDamage = false;
 
     private bool _onWheels = true;
     private float _nitroDuration = 180;
     private float _nitroTickStart = 0;
     private float _nitroPower = 20;
     private float _nitroCoeff = 1.5f;
+    private Collections.DriveUnitEnum _driveUnit = Collections.DriveUnitEnum.BackWheelDrive;
 
     public WheelCollider _leftBackWheel;
     public WheelCollider _rightBackWheel;
@@ -103,7 +103,6 @@ public class CarBase : BaseBehaviour
             _leftForwardWheel.motorTorque = 0;
             _rightForwardWheel.motorTorque = 0;
             Gasoline = 0;
-            //_rig.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationY;
 
             _explosion = true;
             _explosionAnimation.gameObject.SetActive(true);
@@ -111,26 +110,7 @@ public class CarBase : BaseBehaviour
         }
 
         _player.IncreaseScore(Speed * 0.01f);
-        _player.IncreaseScore(_rig.position.y);
-        
-         /*WheelHit hit;
-         _leftBackWheel.GetGroundHit(out hit);
-         if(hit.collider != null && hit.collider.tag == "Ground")
-            _onWheels = true;
-         else
-             _rightBackWheel.GetGroundHit(out hit);
-         if (hit.collider != null && hit.collider.tag == "Ground")
-             _onWheels = true;
-         else
-             _leftForwardWheel.GetGroundHit(out hit);
-         if (hit.collider != null && hit.collider.tag == "Ground")
-             _onWheels = true;
-         else
-             _rightForwardWheel.GetGroundHit(out hit);
-         if (hit.collider != null && hit.collider.tag == "Ground")
-             _onWheels = true;
-         else
-             _onWheels = false;*/
+        _player.IncreaseScore(_rig.position.y * Speed * 0.1f);
         _onWheels = _leftBackWheel.isGrounded || _rightBackWheel.isGrounded || _leftForwardWheel.isGrounded || _rightForwardWheel.isGrounded;
         if (!_onWheels || Gasoline == 0)
         {
@@ -140,12 +120,28 @@ public class CarBase : BaseBehaviour
             _rightForwardWheel.motorTorque = 0;
             if(Gasoline == 0)
             {
-                _leftBackWheel.brakeTorque = _maxTorque * _motorBreak;
-                _rightBackWheel.brakeTorque = _maxTorque * _motorBreak;
-                _leftForwardWheel.brakeTorque = _maxTorque * _motorBreak;
-                _rightForwardWheel.brakeTorque = _maxTorque * _motorBreak;
+                if (_driveUnit == Collections.DriveUnitEnum.BackWheelDrive || _driveUnit == Collections.DriveUnitEnum.FullWheelDrive)
+                {
+                    _leftBackWheel.brakeTorque = _maxTorque * _motorBreak;
+                    _rightBackWheel.brakeTorque = _maxTorque * _motorBreak;
+                }
+                if (_driveUnit == Collections.DriveUnitEnum.FrontWheelDrive || _driveUnit == Collections.DriveUnitEnum.FullWheelDrive)
+                {
+                    _leftForwardWheel.brakeTorque = _maxTorque * _motorBreak;
+                    _rightForwardWheel.brakeTorque = _maxTorque * _motorBreak;
+                }
             }
         }
+    }
+
+    public void SetPrefs(CarPrefs cp)
+    {
+        _maxHp = _hp = cp._health;
+        _maxGasoline = _gasoline = cp._gasolineMax;
+        _motorTorque_coeff = cp._enginePower;
+        _gasolineConsumption = cp._gasolineConsumption;
+        _maxSpeed = cp._maxSpeed;
+        _driveUnit = (Collections.DriveUnitEnum)cp._driveUnit;
     }
 
     public void Force()
@@ -157,10 +153,16 @@ public class CarBase : BaseBehaviour
         {
             if (Speed < _maxSpeed)
             {
-                _leftBackWheel.motorTorque = _maxTorque * _motorTorque * _motorTorque_coeff;
-                _rightBackWheel.motorTorque = _maxTorque * _motorTorque * _motorTorque_coeff;
-                //_leftForwardWheel.motorTorque = _maxTorque * _motorTorque * _motorTorque_coeff;
-                //_rightForwardWheel.motorTorque = _maxTorque * _motorTorque * _motorTorque_coeff;
+                if (_driveUnit == Collections.DriveUnitEnum.BackWheelDrive || _driveUnit == Collections.DriveUnitEnum.FullWheelDrive)
+                {
+                    _leftBackWheel.motorTorque = _maxTorque * _motorTorque * _motorTorque_coeff;
+                    _rightBackWheel.motorTorque = _maxTorque * _motorTorque * _motorTorque_coeff;
+                }
+                if (_driveUnit == Collections.DriveUnitEnum.FrontWheelDrive || _driveUnit == Collections.DriveUnitEnum.FullWheelDrive)
+                {
+                    _leftForwardWheel.motorTorque = _maxTorque * _motorTorque * _motorTorque_coeff;
+                    _rightForwardWheel.motorTorque = _maxTorque * _motorTorque * _motorTorque_coeff;
+                }
             }
             else
             {
@@ -175,12 +177,17 @@ public class CarBase : BaseBehaviour
         Speed = Mathf.Abs(_rig.velocity.magnitude * 3.6f)/*To km/h     ///  to m/h 2.237f */;//Vector3.Distance(_lastPos, wanaPos);
     }
 
-    public void Jump()
+    public bool Jump()
     {
-        if(_onWheels)
+        if (_onWheels && Gasoline > 0)
+        {
             _rig.AddForce(Vector3.up * _jumpPower, ForceMode.VelocityChange);
+            return true;
+        }
+        return false;
     }
-    public void Nitro()
+
+    public bool Nitro()
     {
         if (Gasoline > 0)
         {
@@ -191,7 +198,10 @@ public class CarBase : BaseBehaviour
             _nitroTickStart = _sceneTick;
             _maxSpeed += _nitroPower;
             _motorTorque *= _nitroCoeff;
+
+            return true;
         }
+        return false;
     }
 
     public void OnCollisionEnter(Collision c)
@@ -199,19 +209,12 @@ public class CarBase : BaseBehaviour
         if(c != null)
         {
             _hp -= 10;
-            //_takeDamage = true;
         }
     }
 
     public void OnCollisionStay(Collision c)
     {
-        if(c != null /*&& _takeDamage */&& _hp > 0)
+        if(c != null && _hp > 0)
             _hp -= Time.deltaTime;
-    }
-
-    public void OnCollisionExit(Collision c)
-    {
-        //if (c != null)
-        //    _takeDamage = false;
     }
 }

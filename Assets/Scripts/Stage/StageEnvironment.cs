@@ -12,6 +12,7 @@ public class StageEnvironment : MonoBehaviour
     private PlayerController _playerController;
     private List<BaseBehaviour> _behaviours;
     private Collections.GameStateEnum _gameState = Collections.GameStateEnum.WAITING;
+    private PlayerInfo _playerInfo = new PlayerInfo();
 
     public int Tick
     {
@@ -22,6 +23,7 @@ public class StageEnvironment : MonoBehaviour
     {
         _behaviours = new List<BaseBehaviour>();
         _globalTick = 0;
+        _playerInfo = MenuController.LoadPlayerInfo();
         _map = new MapController();
         _map.GenerateNewMap(100, 100, Collections.TerrainsEnum.SingleStage, new List<Tuple<Vector3, Vector3>>());
         _playerController = new PlayerController(_map.GetTileSize(), this);
@@ -83,13 +85,26 @@ public class StageEnvironment : MonoBehaviour
         }
         if (_gameState == Collections.GameStateEnum.WIN)
         {
-            _uiController.SetMessage("Score: " + _playerController.GetScore());
+            _uiController.SetMessage("Score: " + _playerController.GetScore() + '\n' + "coins: +3");
             _uiController.transform.Find("MenuButton").gameObject.SetActive(true);
+            _gameState = Collections.GameStateEnum.END;
+            var inf = MenuController.LoadPlayerInfo();
+            inf._coins += 3;
+            PlayerPrefsManager.SetString(PrefsNames.PlayerInfo, Serializator.Encode(inf));
+            PlayerPrefsManager.Save();
+        }
+        if (_gameState == Collections.GameStateEnum.END)
+        {
+            return;
         }
         _globalTick++;
-
     }
     
+    public Collections.GameStateEnum GetGameState()
+    {
+        return _gameState;
+    }
+
     public void DrawTerrainLine(Tuple<Vector3, Vector3> t)
     {
         _map.AddNewLine(t);
@@ -97,9 +112,9 @@ public class StageEnvironment : MonoBehaviour
 
     public void ReloadStage(List<Tuple<Vector3, Vector3>> t)
     {
-        var c = CacheResources.GetBehaviour(StringValue.GetStringValue(Collections.CarsEnum.FireGTO)).GetComponent<CarBase>();
+        var c = CacheResources.GetBehaviour(_playerInfo._currentCar._model).GetComponent<CarBase>();
         _playerController = new PlayerController(_map.GetTileSize(), this);
-        _playerController.SetCar(c);
+        _playerController.SetCar(c, _playerInfo._currentCar);
         _behaviours.Add(c);
         _camera.GetComponent<CameraFollowing>().SetTarget(c.gameObject.transform);
         _playerController.SetCarPosition(new Vector3(49, 0.1f, 25));

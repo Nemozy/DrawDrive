@@ -4,18 +4,43 @@ using UnityEngine;
 
 public class UIController : MonoBehaviour
 {
-    private StageEnvironment _stage;
     public UnityEngine.UI.Text _message;
     public UnityEngine.UI.Text _coins;
     public Transform _speedometerArrow;
     public Transform _gasolineArrow;
+
+    private StageEnvironment _stage;
     //skills
-    //public Transform _skillJump;
-    //public Transform _skillNitro;
+    public UnityEngine.UI.Text _skillJump;
+    public UnityEngine.UI.Image _skillJump_Cooldown;
+    public UnityEngine.UI.Text _skillNitro;
+    public UnityEngine.UI.Image _skillNitro_Cooldown;
+
+    private float _tickReady_Jump = 0;
+    private float _cooldownJump = 300;
+    private float _tickReady_Nitro = 0;
+    private float _cooldownNitro = 300;
 
     void Start ()
     {
         _message.text = "";
+        var inf = MenuController.LoadPlayerInfo();
+        if((System.Object)_skillJump != null)
+            _skillJump.text = inf._jumpCount.ToString();
+        if ((System.Object)_skillNitro != null)
+            _skillNitro.text = inf._nitroCount.ToString();
+
+        _cooldownJump = inf._jumpCooldown;
+        _cooldownNitro = inf._nitroCooldown;
+    }
+
+    void Update()
+    {
+        if ((System.Object)_skillJump_Cooldown != null)
+            _skillJump_Cooldown.fillAmount = (_tickReady_Jump - _stage.Tick) / _cooldownJump;
+
+        if ((System.Object)_skillNitro_Cooldown != null)
+            _skillNitro_Cooldown.fillAmount = (_tickReady_Nitro - _stage.Tick) / _cooldownNitro;
     }
 
     public void SetMessage(string t)
@@ -45,13 +70,34 @@ public class UIController : MonoBehaviour
 
     public void SetJump()
     {
-        _stage.GetCurrentPlayer().CarJump();
+        if (_stage.GetGameState() != Collections.GameStateEnum.START || _tickReady_Jump > _stage.Tick)
+            return;
+
+        var inf = MenuController.LoadPlayerInfo();
+        if (inf._jumpCount > 0 && _stage.GetCurrentPlayer().CarJump())
+        {
+            _tickReady_Jump = _stage.Tick + _cooldownJump;
+            _skillJump.text = (int.Parse(_skillJump.text) - 1).ToString();
+            inf._jumpCount -= 1;
+            PlayerPrefsManager.SetString(PrefsNames.PlayerInfo, Serializator.Encode(inf));
+            PlayerPrefsManager.Save();
+        }
     }
-
-
+    
     public void SetNitro()
     {
-        _stage.GetCurrentPlayer().CarNitro();
+        if (_stage.GetGameState() != Collections.GameStateEnum.START || _tickReady_Nitro > _stage.Tick)
+            return;
+
+        var inf = MenuController.LoadPlayerInfo();
+        if (inf._nitroCount > 0 && _stage.GetCurrentPlayer().CarNitro())
+        {
+            _tickReady_Nitro = _stage.Tick + _cooldownNitro;
+            _skillNitro.text = (int.Parse(_skillNitro.text) - 1).ToString();
+            inf._nitroCount -= 1;
+            PlayerPrefsManager.SetString(PrefsNames.PlayerInfo, Serializator.Encode(inf));
+            PlayerPrefsManager.Save();
+        }
     }
 
     public void SetStage(StageEnvironment s)

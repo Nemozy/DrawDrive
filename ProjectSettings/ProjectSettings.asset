@@ -237,7 +237,7 @@ PlayerSettings:
   AndroidTargetDevice: 0
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: D:/UnityProj/DrawDrive/Draw Drive/mainkey.keystore
+  AndroidKeystoreName: D:/UnityProj/DrawDrive/DrawDrive/mainkey.keystore
   AndroidKeyaliasName: artmikdrive
   AndroidTVCompatibility: 1
   AndroidIsGame: 1

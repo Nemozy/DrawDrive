@@ -14,18 +14,11 @@
 
     public static string GetFileFromResources(string name)
     {
-        // Roads
-        //if (name.ToLower() == StringValue.GetStringValue(Collections.RoadPrefabsEnum.RoadDeadend).ToLower()) return "RoadKit/Prefabs/road_deadend";
-        //if (name.ToLower() == StringValue.GetStringValue(Collections.RoadPrefabsEnum.RoadStraight).ToLower()) return "RoadKit/Prefabs/road_straight";
-
-
-
-
         // Cars
-        if (name.ToLower() == StringValue.GetStringValue(Collections.CarsEnum.FireGTO).ToLower()) return "Behaviours/Cars/FordMustang/Prefabs/Mustang";
-
-
-
+        if (name.ToLower() == StringValue.GetStringValue(Collections.CarsEnum.FireGTO).ToLower()) return "Behaviours/Cars/PontiacFireGTO/Prefabs/FireGTO";
+        if (name.ToLower() == StringValue.GetStringValue(Collections.CarsEnum.Focus).ToLower()) return "Behaviours/Cars/FordFocus/Prefabs/Focus";
+        if (name.ToLower() == StringValue.GetStringValue(Collections.CarsEnum.Aventador).ToLower()) return "Behaviours/Cars/LamborginiAventador/Prefabs/Aventador";
+        
         // Terrains
         if (name.ToLower() == StringValue.GetStringValue(Collections.TerrainsEnum.SingleStage).ToLower()) return "Terrains/SingleStage";
 

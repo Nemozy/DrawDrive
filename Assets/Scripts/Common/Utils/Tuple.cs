@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-[System.Serializable]
+[Serializable]
 public class Tuple<T1, T2>
 {
     public T1 first;
@@ -62,6 +62,7 @@ public class Tuple<T1, T2>
         return object.ReferenceEquals(obj, null);
     }
 }
+[Serializable]
 public class Tuple<T1, T2, T3>
 {
     public T1 first;

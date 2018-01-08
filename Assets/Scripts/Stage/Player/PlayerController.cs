@@ -22,9 +22,10 @@ public class PlayerController
         return Mathf.CeilToInt(_score);
     }
 
-    public void SetCar(CarBase c)
+    public void SetCar(CarBase c, CarPrefs cp)
     {
         _car = c;
+        _car.SetPrefs(cp);
         _car.SetPlayer(this);
     }
 
@@ -43,14 +44,14 @@ public class PlayerController
         _car.Force();
     }
 
-    public void CarJump()
+    public bool CarJump()
     {
-        _car.Jump();
+        return _car.Jump();
     }
 
-    public void CarNitro()
+    public bool CarNitro()
     {
-        _car.Nitro();
+        return _car.Nitro();
     }
 
     public float GetCarGasoline()
