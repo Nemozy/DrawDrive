@@ -20,6 +20,8 @@ namespace CarsData
 
         private void SaveData()
         {
+            var t = Serializator.LoadFile<CarData>(@"F:/aatestf");
+
             CarData data = new CarData();
             data.Model = "FireGTO";
             data.EnginePower = 2.8f;
