@@ -136,12 +136,12 @@ public class CarBase : BaseBehaviour
 
     public void SetPrefs(CarPrefs cp)
     {
-        _maxHp = _hp = cp._health;
-        _maxGasoline = _gasoline = cp._gasolineMax;
-        _motorTorque_coeff = cp._enginePower;
-        _gasolineConsumption = cp._gasolineConsumption;
-        _maxSpeed = cp._maxSpeed;
-        _driveUnit = (Collections.DriveUnitEnum)cp._driveUnit;
+        _maxHp = _hp = cp.Health;
+        _maxGasoline = _gasoline = cp.GasolineMax;
+        _motorTorque_coeff = cp.EnginePower;
+        _gasolineConsumption = cp.GasolineConsumption;
+        _maxSpeed = cp.MaxSpeed;
+        _driveUnit = (Collections.DriveUnitEnum)cp.DriveUnit;
     }
 
     public void Force()

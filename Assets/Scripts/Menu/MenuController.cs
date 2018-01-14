@@ -11,7 +11,7 @@ public class MenuController : MonoBehaviour
     void Start()
     {
         _playerInfo = MenuController.LoadPlayerInfo();
-        _uiController.SetCoins(_playerInfo._coins);
+        _uiController.SetCoins(_playerInfo.Coins);
         ReloadMainCar();
     }
 
@@ -22,29 +22,29 @@ public class MenuController : MonoBehaviour
 
     public CarPrefs GetCurrentCarInfo()
     {
-        return _playerInfo._currentCar;
+        return _playerInfo.CurrentCar;
     }
 
     public List<Tuple<uint,bool, CarPrefs>> GetUnlockedCarsInfo()
     {
-        return _playerInfo._unlockedCars;
+        return _playerInfo.UnlockedCars;
     }
 
     public void SetCurrentCarInfo(CarPrefs p)
     {
-        _playerInfo._currentCar = p;
+        _playerInfo.CurrentCar = p;
     }
 
     public void ReloadData()
     {
         _playerInfo = MenuController.LoadPlayerInfo();
-        _uiController.SetCoins(_playerInfo._coins);
+        _uiController.SetCoins(_playerInfo.Coins);
         ReloadMainCar();
     }
 
     public void ReloadMainCar()
     {
-        var obj = CacheResources.GetBehaviour(_playerInfo._currentCar._model);
+        var obj = CacheResources.GetBehaviour(_playerInfo.CurrentCar.Model);
         if((System.Object)obj != null)
         {
             for (var i = 0; i < _carParent.childCount; i++)

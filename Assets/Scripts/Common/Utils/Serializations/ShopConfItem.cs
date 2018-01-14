@@ -7,12 +7,12 @@ using System.Xml.Serialization;
 public class ShopConfItem
 {
     [XmlElement("Model")]
-    public string _model = "null";
+    public string Model = "null";
     [XmlElement("Price")]
-    public uint _price = 0;
+    public uint Price = 0;
 
     //customize
     [XmlArray("Parts")]
     [XmlArrayItem("Tuple")]
-    public List<Tuple<string, ShopConfItem>> _parts = new List<Tuple<string, ShopConfItem>>();
+    public List<Tuple<string, ShopConfItem>> Parts = new List<Tuple<string, ShopConfItem>>();
 }

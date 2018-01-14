@@ -5,7 +5,7 @@ public class Serializator
 {
     public static BinaryFormatter bf = new BinaryFormatter();
 
-    /*public static void Save(string prefKey, object serializableObject)
+    public static void SaveFile(string prefKey, object serializableObject)
     {
         MemoryStream memoryStream = new MemoryStream();
         bf.Serialize(memoryStream, serializableObject);
@@ -13,7 +13,7 @@ public class Serializator
         PlayerPrefsManager.SetString(prefKey, tmp);
     }
 
-    public static T Load<T>(string prefKey)
+    public static T LoadFile<T>(string prefKey)
     {
         if (!PlayerPrefsManager.HasKey(prefKey))
             return default(T);
@@ -23,7 +23,7 @@ public class Serializator
         T deserializedObject = (T)bf.Deserialize(dataStream);
         return deserializedObject;
     }
-    */
+    
     public static string Encode(object serializableObject)
     {
         MemoryStream memoryStream = new MemoryStream();

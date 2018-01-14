@@ -42,43 +42,27 @@ public class MapView
         float[,] ret = h;
         var step = 0.001f;
         var val = 0f;
-        if (v2.z < v1.z)
+        if (v2.y < v1.y)
         {
-            var d = v2.z - v1.z > 20 ? v2.z - v1.z - 20 : v2.z - v1.z;
-            step *= (v2.y - v1.y) / d;
-            for (int i = -1; i >= -10; i--)
-            {
-                ret[Mathf.RoundToInt(v2.z - i), j] = step * 10 / (i - 0);
-            }
-            val = step;
-            for (int i = Mathf.RoundToInt(v2.z + 10); i < Mathf.RoundToInt(v1.z - 10); i++)
+            var d = v2.z - v1.z;
+            val = v1.y * step;
+            step *= (v1.y - v2.y) / d;
+            for (int i = Mathf.RoundToInt(v1.z); i < Mathf.RoundToInt(v2.z); i++)
             {
                 ret[i, j] = val;
-                val += step;
-            }
-            for (int i = 1; i <= 10; i++)
-            {
-                ret[Mathf.RoundToInt(v1.z - 10 + i), j] = step * 10 / (i - 0);
+                val -= step;
             }
             val += step;
         }
         else
         {
-            var d = v1.z - v2.z > 10 ? v1.z - v2.z - 10 : v1.z - v2.z;
-            step *= (v1.y - v2.y) / d;
-            for (int i = -1; i >= -10; i--)
-            {
-                ret[Mathf.RoundToInt(v1.z + 1 + i), j] = step / (0 - i);
-            }
-            val = step;
-            for (int i = Mathf.RoundToInt(v1.z); i < Mathf.RoundToInt(v2.z - 4); i++)
+            var d = v2.z - v1.z;
+            val = v1.y * step;
+            step *= (v2.y - v1.y) / d;
+            for (int i = Mathf.RoundToInt(v1.z); i < Mathf.RoundToInt(v2.z); i++)
             {
                 ret[i, j] = val;
                 val += step;
-            }
-            for (int i = 1; i <= 5; i++)
-            {
-                ret[Mathf.RoundToInt(v2.z - i), j] = step * 10 / (0 - i) + val;
             }
             val += step;
         }

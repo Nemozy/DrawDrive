@@ -8,5 +8,5 @@ public class ShopConf
 {
     [XmlArray("Cars")]
     [XmlArrayItem("ShopConfItem")]
-    public List<ShopConfItem> _unlockedCars = new List<ShopConfItem>();
+    public List<ShopConfItem> UnlockedCars = new List<ShopConfItem>();
 }

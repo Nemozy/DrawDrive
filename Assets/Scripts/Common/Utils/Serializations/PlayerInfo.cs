@@ -7,95 +7,95 @@ using System.Xml.Serialization;
 public class PlayerInfo
 {
     [XmlElement("Coins")]
-    public uint _coins = 0;
+    public uint Coins = 0;
 
     //powerups
     [XmlElement("NitroStartPower")]
-    public float _nitroStartPower = 1.3f;
+    public float NitroStartPower = 1.3f;
     [XmlElement("NitroPower")]
-    public float _nitroPower = 20;
+    public float NitroPower = 20;
     [XmlElement("NitroCooldown")]
-    public float _nitroCooldown = 600f;
+    public float NitroCooldown = 600f;
     [XmlElement("NitroCount")]
-    public uint _nitroCount = 999;
+    public uint NitroCount = 999;
     [XmlElement("JumpPower")]
-    public float _jumpPower = 6f;
+    public float JumpPower = 6f;
     [XmlElement("JumpCooldown")]
-    public float _jumpCooldown = 600f;
+    public float JumpCooldown = 600f;
     [XmlElement("JumpCount")]
-    public uint _jumpCount = 999;
+    public uint JumpCount = 999;
     
     //customize
     [XmlArray("UnlockedCars")]
     [XmlArrayItem("Tuple")]
-    public List<Tuple<uint, bool, CarPrefs>> _unlockedCars = new List<Tuple<uint, bool, CarPrefs>>();
+    public List<Tuple<uint, bool, CarPrefs>> UnlockedCars = new List<Tuple<uint, bool, CarPrefs>>();
 
     [XmlElement("CurrentCar")]
-    public CarPrefs _currentCar = new CarPrefs();
+    public CarPrefs CurrentCar = new CarPrefs();
 
     public PlayerInfo()
     {
         //FireGTO
         var cp = new CarPrefs
         {
-            _model = StringValue.GetStringValue(Collections.CarsEnum.FireGTO)
+            Model = StringValue.GetStringValue(Collections.CarsEnum.FireGTO)
         };
-        cp._unlockedWheels.Add(new Tuple<uint, bool>(0, true));
-        cp._unlockedWheels.Add(new Tuple<uint, bool>(1, false));
-        cp._unlockedWheels.Add(new Tuple<uint, bool>(2, false));
-        cp._unlockedWheels.Add(new Tuple<uint, bool>(3, false));
-        cp._unlockedSpoilers.Add(new Tuple<uint, bool>(0, true));
-        cp._unlockedSpoilers.Add(new Tuple<uint, bool>(1, false));
-        cp._unlockedSpoilers.Add(new Tuple<uint, bool>(2, false));
-        cp._unlockedSpoilers.Add(new Tuple<uint, bool>(3, false));
-        cp._unlockedColors.Add(new Tuple<uint, bool>(0, true));
-        cp._unlockedColors.Add(new Tuple<uint, bool>(1, false));
-        cp._gasolineMax = 40;
-        cp._enginePower = 3;
-        cp._maxSpeed = 120;
-        cp._gasolineConsumption = 18;
-        cp._health = 100;
-        cp._driveUnit = (int)Collections.DriveUnitEnum.BackWheelDrive;
-        _unlockedCars.Add(new Tuple<uint, bool, CarPrefs>(0, true, cp));
+        cp.UnlockedWheels.Add(new Tuple<uint, bool>(0, true));
+        cp.UnlockedWheels.Add(new Tuple<uint, bool>(1, false));
+        cp.UnlockedWheels.Add(new Tuple<uint, bool>(2, false));
+        cp.UnlockedWheels.Add(new Tuple<uint, bool>(3, false));
+        cp.UnlockedSpoilers.Add(new Tuple<uint, bool>(0, true));
+        cp.UnlockedSpoilers.Add(new Tuple<uint, bool>(1, false));
+        cp.UnlockedSpoilers.Add(new Tuple<uint, bool>(2, false));
+        cp.UnlockedSpoilers.Add(new Tuple<uint, bool>(3, false));
+        cp.UnlockedColors.Add(new Tuple<uint, bool>(0, true));
+        cp.UnlockedColors.Add(new Tuple<uint, bool>(1, false));
+        cp.GasolineMax = 40;
+        cp.EnginePower = 3;
+        cp.MaxSpeed = 120;
+        cp.GasolineConsumption = 18;
+        cp.Health = 100;
+        cp.DriveUnit = (int)Collections.DriveUnitEnum.BackWheelDrive;
+        UnlockedCars.Add(new Tuple<uint, bool, CarPrefs>(0, true, cp));
 
         //focus
         cp = new CarPrefs
         {
-            _model = StringValue.GetStringValue(Collections.CarsEnum.Focus)
+            Model = StringValue.GetStringValue(Collections.CarsEnum.Focus)
         };
-        cp._unlockedWheels.Add(new Tuple<uint, bool>(0, true));
-        cp._unlockedWheels.Add(new Tuple<uint, bool>(1, false));
-        cp._unlockedSpoilers.Add(new Tuple<uint, bool>(0, true));
-        cp._unlockedColors.Add(new Tuple<uint, bool>(0, true));
-        cp._unlockedColors.Add(new Tuple<uint, bool>(1, false));
-        cp._gasolineMax = 55;
-        cp._enginePower = 4;
-        cp._maxSpeed = 160;
-        cp._gasolineConsumption = 14;
-        cp._health = 100;
-        cp._driveUnit = (int)Collections.DriveUnitEnum.BackWheelDrive;
-        _unlockedCars.Add(new Tuple<uint, bool, CarPrefs>(1, false, cp));
+        cp.UnlockedWheels.Add(new Tuple<uint, bool>(0, true));
+        cp.UnlockedWheels.Add(new Tuple<uint, bool>(1, false));
+        cp.UnlockedSpoilers.Add(new Tuple<uint, bool>(0, true));
+        cp.UnlockedColors.Add(new Tuple<uint, bool>(0, true));
+        cp.UnlockedColors.Add(new Tuple<uint, bool>(1, false));
+        cp.GasolineMax = 55;
+        cp.EnginePower = 4;
+        cp.MaxSpeed = 160;
+        cp.GasolineConsumption = 14;
+        cp.Health = 100;
+        cp.DriveUnit = (int)Collections.DriveUnitEnum.BackWheelDrive;
+        UnlockedCars.Add(new Tuple<uint, bool, CarPrefs>(1, false, cp));
 
         //aventador
         cp = new CarPrefs
         {
-            _model = StringValue.GetStringValue(Collections.CarsEnum.Aventador)
+            Model = StringValue.GetStringValue(Collections.CarsEnum.Aventador)
         };
-        cp._unlockedWheels.Add(new Tuple<uint, bool>(0, true));
-        cp._unlockedWheels.Add(new Tuple<uint, bool>(1, false));
-        cp._unlockedSpoilers.Add(new Tuple<uint, bool>(0, true));
-        cp._unlockedColors.Add(new Tuple<uint, bool>(0, true));
-        cp._unlockedColors.Add(new Tuple<uint, bool>(1, false));
-        cp._gasolineMax = 80;
-        cp._enginePower = 6;
-        cp._maxSpeed = 220;
-        cp._gasolineConsumption = 22;
-        cp._health = 100;
-        cp._driveUnit = (int)Collections.DriveUnitEnum.FullWheelDrive;
-        _unlockedCars.Add(new Tuple<uint, bool, CarPrefs>(2, false, cp));
+        cp.UnlockedWheels.Add(new Tuple<uint, bool>(0, true));
+        cp.UnlockedWheels.Add(new Tuple<uint, bool>(1, false));
+        cp.UnlockedSpoilers.Add(new Tuple<uint, bool>(0, true));
+        cp.UnlockedColors.Add(new Tuple<uint, bool>(0, true));
+        cp.UnlockedColors.Add(new Tuple<uint, bool>(1, false));
+        cp.GasolineMax = 80;
+        cp.EnginePower = 6;
+        cp.MaxSpeed = 220;
+        cp.GasolineConsumption = 22;
+        cp.Health = 100;
+        cp.DriveUnit = (int)Collections.DriveUnitEnum.FullWheelDrive;
+        UnlockedCars.Add(new Tuple<uint, bool, CarPrefs>(2, false, cp));
 
-        _coins = 1000;
+        Coins = 1000;
 
-        _currentCar = _unlockedCars[0].third;
+        CurrentCar = UnlockedCars[0].third;
     }
 }

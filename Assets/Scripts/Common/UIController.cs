@@ -26,12 +26,12 @@ public class UIController : MonoBehaviour
         _message.text = "";
         var inf = MenuController.LoadPlayerInfo();
         if((System.Object)_skillJump != null)
-            _skillJump.text = inf._jumpCount.ToString();
+            _skillJump.text = inf.JumpCount.ToString();
         if ((System.Object)_skillNitro != null)
-            _skillNitro.text = inf._nitroCount.ToString();
+            _skillNitro.text = inf.NitroCount.ToString();
 
-        _cooldownJump = inf._jumpCooldown;
-        _cooldownNitro = inf._nitroCooldown;
+        _cooldownJump = inf.JumpCooldown;
+        _cooldownNitro = inf.NitroCooldown;
     }
 
     void Update()
@@ -74,11 +74,11 @@ public class UIController : MonoBehaviour
             return;
 
         var inf = MenuController.LoadPlayerInfo();
-        if (inf._jumpCount > 0 && _stage.GetCurrentPlayer().CarJump())
+        if (inf.JumpCount > 0 && _stage.GetCurrentPlayer().CarJump())
         {
             _tickReady_Jump = _stage.Tick + _cooldownJump;
             _skillJump.text = (int.Parse(_skillJump.text) - 1).ToString();
-            inf._jumpCount -= 1;
+            inf.JumpCount -= 1;
             PlayerPrefsManager.SetString(PrefsNames.PlayerInfo, Serializator.Encode(inf));
             PlayerPrefsManager.Save();
         }
@@ -90,11 +90,11 @@ public class UIController : MonoBehaviour
             return;
 
         var inf = MenuController.LoadPlayerInfo();
-        if (inf._nitroCount > 0 && _stage.GetCurrentPlayer().CarNitro())
+        if (inf.NitroCount > 0 && _stage.GetCurrentPlayer().CarNitro())
         {
             _tickReady_Nitro = _stage.Tick + _cooldownNitro;
             _skillNitro.text = (int.Parse(_skillNitro.text) - 1).ToString();
-            inf._nitroCount -= 1;
+            inf.NitroCount -= 1;
             PlayerPrefsManager.SetString(PrefsNames.PlayerInfo, Serializator.Encode(inf));
             PlayerPrefsManager.Save();
         }

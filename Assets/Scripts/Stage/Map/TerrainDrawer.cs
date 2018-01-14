@@ -50,11 +50,27 @@ public class TerrainDrawer : MonoBehaviour
         {
             _countLines++;
             _startDraw = true;
-            _startDrawPos = Camera.allCameras[0].ScreenToWorldPoint(new Vector3(Input.mousePosition.x , Input.mousePosition.y, 250));
-            
+            _startDrawPos = Camera.allCameras[0].ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 250));
             CurLine.positionCount = _countLines * 2;
             CurLine.SetPosition(_countLines * 2 - 2, _startDrawPos);
             CurLine.SetPosition(_countLines * 2 - 1, _startDrawPos);
+            
+            var coeff = Input.mousePosition.x - Camera.allCameras[0].pixelWidth / 2;
+            coeff /= Camera.allCameras[0].pixelWidth / 2;
+            _startDrawPos = new Vector3(_startDrawPos.x, _startDrawPos.y, _startDrawPos.z + 14 + 15 * coeff);
+            
+            if (_endDrawPos != Vector3.zero)
+            {
+                var tpl = new Tuple<Vector3, Vector3>(_endDrawPos,_startDrawPos);
+                Stage.DrawTerrainLine(tpl);
+                _lines.Add(tpl);
+            }
+            else if(_startDrawPos.y > 0)
+            {
+                var tpl = new Tuple<Vector3, Vector3>(new Vector3(_startDrawPos.x, 0, 245), _startDrawPos);
+                Stage.DrawTerrainLine(tpl);
+                _lines.Add(tpl);
+            }
         }
         if(_startDraw)
         {
@@ -66,9 +82,12 @@ public class TerrainDrawer : MonoBehaviour
             CurLine.positionCount = 0;
             _startDraw = false;
             _endDrawPos = Camera.allCameras[0].ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 250));
+            
             var coeff = Input.mousePosition.x - Camera.allCameras[0].pixelWidth / 2;
             coeff /= Camera.allCameras[0].pixelWidth / 2;
-            var tpl = new Tuple<Vector3, Vector3>(new Vector3(_startDrawPos.x - 240, _startDrawPos.y, _startDrawPos.z + 12 + 20 * coeff), new Vector3(_endDrawPos.x - 240, _endDrawPos.y, _endDrawPos.z + 12 + 20 * coeff));
+            _endDrawPos = new Vector3(_endDrawPos.x, _endDrawPos.y, _endDrawPos.z + 14 + 15 * coeff);
+            var tpl = new Tuple<Vector3, Vector3>(_startDrawPos, _endDrawPos);
+            
             Stage.DrawTerrainLine(tpl);
             _lines.Add(tpl);
         }

@@ -89,7 +89,7 @@ public class StageEnvironment : MonoBehaviour
             _uiController.transform.Find("MenuButton").gameObject.SetActive(true);
             _gameState = Collections.GameStateEnum.END;
             var inf = MenuController.LoadPlayerInfo();
-            inf._coins += 3;
+            inf.Coins += 3;
             PlayerPrefsManager.SetString(PrefsNames.PlayerInfo, Serializator.Encode(inf));
             PlayerPrefsManager.Save();
         }
@@ -112,12 +112,12 @@ public class StageEnvironment : MonoBehaviour
 
     public void ReloadStage(List<Tuple<Vector3, Vector3>> t)
     {
-        var c = CacheResources.GetBehaviour(_playerInfo._currentCar._model).GetComponent<CarBase>();
+        var c = CacheResources.GetBehaviour(_playerInfo.CurrentCar.Model).GetComponent<CarBase>();
         _playerController = new PlayerController(_map.GetTileSize(), this);
-        _playerController.SetCar(c, _playerInfo._currentCar);
+        _playerController.SetCar(c, _playerInfo.CurrentCar);
         _behaviours.Add(c);
         _camera.GetComponent<CameraFollowing>().SetTarget(c.gameObject.transform);
-        _playerController.SetCarPosition(new Vector3(49, 0.1f, 25));
+        _playerController.SetCarPosition(new Vector3(49, 0.1f, 23));
         _camera.GetComponent<CameraFollowing>().SetTarget(c.gameObject.transform);
         _playerController.SetCarRotation(new Vector3(0, 180, 0));
         _map.GenerateNewMap(100, 100, Collections.TerrainsEnum.SingleStage, t);

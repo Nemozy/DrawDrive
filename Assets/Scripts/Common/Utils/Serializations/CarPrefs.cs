@@ -7,34 +7,34 @@ using System.Xml.Serialization;
 public class CarPrefs
 {
     [XmlElement("Model")]
-    public string _model = "null";
+    public string Model = "null";
     [XmlElement("UsedWheelsModel")]
-    public int _usedWheelsModel = 0;
+    public int UsedWheelsModel = 0;
     [XmlElement("UsedSpoilerModel")]
-    public int _usedSpoilerModel = -1;
+    public int UsedSpoilerModel = -1;
     [XmlElement("UsedColorModel")]
-    public int _usedColorModel = 0;
+    public int UsedColorModel = 0;
 
     [XmlElement("GasolineMax")]
-    public int _gasolineMax = 0;
+    public float GasolineMax = 0;
     [XmlElement("EnginePower")]
-    public float _enginePower = 0;
+    public float EnginePower = 0;
     [XmlElement("MaxSpeed")]
-    public int _maxSpeed = 0;
+    public float MaxSpeed = 0;
     [XmlElement("GasolineConsumption")]
-    public int _gasolineConsumption = 0;
+    public float GasolineConsumption = 0;
     [XmlElement("Health")]
-    public int _health = 0;
+    public int Health = 0;
     [XmlElement("DriveUnit")]
-    public int _driveUnit = 0;
+    public int DriveUnit = 0;
 
     [XmlArray("UnlockedWheels")]
     [XmlArrayItem("Tuple")]
-    public List<Tuple<uint, bool>> _unlockedWheels = new List<Tuple<uint, bool>>();
+    public List<Tuple<uint, bool>> UnlockedWheels = new List<Tuple<uint, bool>>();
     [XmlArray("UnlockedSpoilers")]
     [XmlArrayItem("Tuple")]
-    public List<Tuple<uint, bool>> _unlockedSpoilers = new List<Tuple<uint, bool>>();
+    public List<Tuple<uint, bool>> UnlockedSpoilers = new List<Tuple<uint, bool>>();
     [XmlArray("UnlockedColors")]
     [XmlArrayItem("Tuple")]
-    public List<Tuple<uint, bool>> _unlockedColors = new List<Tuple<uint, bool>>();
+    public List<Tuple<uint, bool>> UnlockedColors = new List<Tuple<uint, bool>>();
 }
